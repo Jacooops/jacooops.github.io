@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La mia Vetria Software & Progetti</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Google per un look moderno -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Intestazione / Header -->
+  <header class="hero">
+    <div class="container">
+      <span class="badge">Portfolio & Software</span>
+      <h1>I miei Progetti & Applicazioni</h1>
+      <p class="subtitle">Uno spazio dove raccolgo i software che sviluppo e le mie passioni. Scarica le app liberamente e scopri le ultime novità.</p>
+    </div>
+  </header>
+
+  <!-- Navigazione Sezioni (Pronta per essere ampliata) -->
+  <nav class="nav-bar">
+    <div class="container">
+      <ul class="nav-links">
+        <li><a href="#apps" class="active">📱 Applicazioni</a></li>
+        <!-- In futuro ti basterà sbloccare/aggiungere queste voci:
+        <li><a href="#libri">📚 Libri</a></li>
+        <li><a href="#vinili">🎵 Vinili</a></li> 
+        -->
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Contenuto Principale -->
+  <main class="container main-content">
+
+    <!-- SEZIONE APPLICAZIONI -->
+    <section id="apps" class="section">
+      <h2 class="section-title">Le mie Applicazioni</h2>
+
+      <div class="grid">
+        
+        <!-- CARD: MASTERMIND -->
+        <article class="card featured-card">
+          <div class="card-tag">Disponibile Ora</div>
+          <div class="card-icon">🧠</div>
+          <h3>Mastermind</h3>
+          <p class="card-description">
+            Il classico gioco di logica e codici segreti riadattato in versione digitale. Sfida la tua mente e indovina la combinazione nel minor numero di tentativi!
+          </p>
+          
+          <div class="card-details">
+            <span class="tech-stack">🎮 Gioco / Desktop</span>
+          </div>
+
+          <!-- Sostituisci "TUO-USERNAME" con il tuo username GitHub -->
+          <a href="https://github.com/TUO-USERNAME/Mastermind/releases/latest" target="_blank" rel="noopener" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Scarica l'ultima versione
+          </a>
+
+          <!-- Avviso di sicurezza per gli utenti -->
+          <div class="security-note">
+            ℹ️ <strong>Nota sull'installazione:</strong> Essendo un software indipendente senza firma digitale commerciale, Windows o macOS potrebbero mostrare un avviso al primo avvio. Clicca su <em>"Ulteriori informazioni"</em> e poi <em>"Esegui comunque"</em>.
+          </div>
+        </article>
+
+        <!-- CARD PLACEHOLDER: Prossima App in arrivo -->
+        <article class="card placeholder-card">
+          <div class="card-icon">🚀</div>
+          <h3>Prossima App</h3>
+          <p class="card-description">
+            Sto lavorando a un nuovo progetto. Torna a trovarmi presto per scoprirne i dettagli e scaricare le prime build!
+          </p>
+          <button class="btn btn-disabled" disabled>In Sviluppo</button>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Piè di pagina / Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 - Realizzato da me e ospitato gratuitamente su GitHub Pages.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
