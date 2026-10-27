@@ -1,242 +1,221 @@
 /* ==========================================================================
-   DESIGN TOKENS
-   Tutti i colori passano da qui: per cambiare l'aspetto basta toccare queste
-   variabili. Light di default; dark automatico (preferenza di sistema) oppure
-   forzato dal pulsante tema tramite <html data-theme="light|dark">.
+   TOKEN
+   Ogni colore ha la coppia light-dark(chiaro, scuro): niente più blocchi
+   duplicati. Il tema segue il sistema; il pulsante lo forza con
+   <html data-theme="light|dark">.
    ========================================================================== */
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 
-  /* Superfici */
-  --bg: #faf9f5;
-  --surface: #ffffff;
-  --surface-muted: #f3f1ea;
+  --bg: light-dark(#faf6f0, #1b1a18);
+  --text: light-dark(#2b2824, #efebe3);
+  --muted: light-dark(#6a645a, #a9a397);
+  --line: light-dark(rgb(60 45 30 / .12), rgb(255 255 255 / .12));
+  --line-strong: light-dark(rgb(60 45 30 / .24), rgb(255 255 255 / .24));
 
-  /* Bordi */
-  --border: #e6e2d6;
-  --border-strong: #d3cebf;
+  /* Vetro */
+  --glass: light-dark(rgb(255 255 255 / .62), rgb(255 255 255 / .07));
+  --glass-weak: light-dark(rgb(255 255 255 / .28), rgb(255 255 255 / .03));
+  --glass-hi: light-dark(rgb(255 255 255 / .95), rgb(255 255 255 / .16));
+  --shadow-c: light-dark(rgb(90 55 30 / .16), rgb(0 0 0 / .45));
 
-  /* Testi (mai nero puro) */
-  --text: #2b2924;
-  --text-muted: #6b675d;
+  /* Colori di categoria (già abbastanza scuri/chiari da essere leggibili come testo) */
+  --coral: light-dark(#b4482a, #f08e6c);
+  --indigo: light-dark(#4f53c7, #a2a5f7);
+  --teal: light-dark(#0b7a6b, #52d3bb);
 
-  /* Accento terracotta: solo CTA, tab attiva, focus, tag */
-  --accent: #b9552f;
-  --accent-hover: #a24829;
-  --accent-soft: #f6e7de;
-  --accent-text: #8f3f1f;
-  --on-accent: #ffffff;
-  --ring: rgba(185, 85, 47, 0.28);
+  /* Pulsante principale */
+  --btn-a: light-dark(#b9482c, #ec8a64);
+  --btn-b: light-dark(#cf6a2a, #f4a85f);
+  --on-btn: light-dark(#ffffff, #2a1a12);
 
-  /* Ombre quasi impercettibili */
-  --shadow-sm: 0 1px 2px rgba(43, 41, 36, 0.04);
-  --shadow-md: 0 1px 2px rgba(43, 41, 36, 0.04), 0 6px 20px rgba(43, 41, 36, 0.05);
-
-  /* Forma e movimento */
-  --radius-sm: 8px;
-  --radius-md: 12px;
+  --radius: 12px;
   --speed: 180ms;
-  --ease: cubic-bezier(0.2, 0, 0, 1);
-
-  /* Tipografia */
+  --ease: cubic-bezier(.2, 0, 0, 1);
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg: #1f1e1c;
-    --surface: #272623;
-    --surface-muted: #2e2c28;
-    --border: #3b3935;
-    --border-strong: #4b4842;
-    --text: #ebe8df;
-    --text-muted: #a39e92;
-    --accent: #d97757;
-    --accent-hover: #e48a6c;
-    --accent-soft: rgba(217, 119, 87, 0.14);
-    --accent-text: #eba58b;
-    --on-accent: #1f1e1c;
-    --ring: rgba(217, 119, 87, 0.38);
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.16);
-  }
-}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
 
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #1f1e1c;
-  --surface: #272623;
-  --surface-muted: #2e2c28;
-  --border: #3b3935;
-  --border-strong: #4b4842;
-  --text: #ebe8df;
-  --text-muted: #a39e92;
-  --accent: #d97757;
-  --accent-hover: #e48a6c;
-  --accent-soft: rgba(217, 119, 87, 0.14);
-  --accent-text: #eba58b;
-  --on-accent: #1f1e1c;
-  --ring: rgba(217, 119, 87, 0.38);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.16);
-}
+/* Il colore della categoria vive in --c: tab, icone, tag e bagliori lo leggono da lì */
+[data-cat="giochi"]   { --c: var(--coral); }
+[data-cat="sviluppo"] { --c: var(--indigo); }
+[data-cat="altro"]    { --c: var(--teal); }
 
 /* ==========================================================================
-   RESET E BASE
+   BASE
    ========================================================================== */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: var(--font);
-  font-size: 1rem;
-  line-height: 1.65;
+  font: 400 1rem/1.65 var(--font);
   color: var(--text);
-  background-color: var(--bg);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   transition: background-color var(--speed) var(--ease), color var(--speed) var(--ease);
 }
 
-::selection {
-  background: var(--accent-soft);
-  color: var(--text);
+/* Macchie di colore sfocate dietro la pagina: danno al vetro qualcosa da rifrangere */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38rem 30rem at 6% 0%,    light-dark(rgb(232 122 84 / .30),  rgb(240 142 108 / .16)), transparent 70%),
+    radial-gradient(34rem 28rem at 96% 14%,  light-dark(rgb(110 114 232 / .26), rgb(130 134 245 / .15)), transparent 70%),
+    radial-gradient(40rem 30rem at 72% 108%, light-dark(rgb(60 190 168 / .26),  rgb(70 205 180 / .13)),  transparent 70%),
+    radial-gradient(30rem 24rem at 0% 92%,   light-dark(rgb(240 180 100 / .30), rgb(235 170 90 / .13)),  transparent 70%);
 }
 
-/* Focus visibile e coerente per tutto ciò che è interattivo */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--c, var(--coral));
   outline-offset: 3px;
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
 }
 
-/* Il contenitore ora è centrato (prima era margin: 0 e si appiccicava a sinistra) */
-.container {
-  width: 100%;
-  max-width: none;
-  margin: 24px auto 0;
-  padding: 0px 24px;
+.container { width: 100%; padding-inline: 24px; }
+
+.icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Transizione condivisa da tutti gli elementi interattivi */
+.link, .icon-btn, .tab-btn, .btn, .card {
+  transition: color var(--speed) var(--ease), background-color var(--speed) var(--ease),
+    border-color var(--speed) var(--ease), box-shadow var(--speed) var(--ease),
+    filter var(--speed) var(--ease);
 }
 
 /* ==========================================================================
-   TOP BAR
+   VETRO: barra, tab e card condividono la stessa ricetta
    ========================================================================== */
-.topbar .container {
+.bar, .tabs, .card {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--glass-hi), 0 12px 28px -14px var(--shadow-c);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
+}
+
+/* Se il browser non supporta il blur o l'utente chiede meno trasparenza: fondo pieno */
+@supports not (backdrop-filter: blur(1px)) {
+  :root { --glass: light-dark(#fffdfa, #2a2825); --glass-weak: transparent; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass: light-dark(#fffdfa, #2a2825); --glass-weak: transparent; }
+  .bar, .tabs, .card { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* ==========================================================================
+   BARRA SUPERIORE
+   ========================================================================== */
+.topbar { position: sticky; top: 12px; z-index: 10; margin-top: 12px; }
+
+.bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  gap: 12px;
+  padding: 6px 6px 6px 20px;
+  border-radius: 999px;
 }
 
-.brand {
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: -0.01em;
+.brand { font-weight: 600; font-size: .95rem; letter-spacing: -.01em; }
+.bar-actions { display: flex; align-items: center; gap: 4px; }
+
+.link {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
 }
 
 .icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   width: 36px;
   height: 36px;
-  color: var(--text-muted);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: 50%;
   cursor: pointer;
-  transition: color var(--speed) var(--ease), background-color var(--speed) var(--ease),
-    border-color var(--speed) var(--ease);
 }
 
-.icon-btn:hover {
-  color: var(--text);
-  background-color: var(--surface-muted);
-  border-color: var(--border);
-}
+.link:hover, .icon-btn:hover { color: var(--text); background: var(--line); }
 
 /* ==========================================================================
    HERO
    ========================================================================== */
-.hero {
-  padding: 6px 0 40px;
-}
+.hero { padding-block: 32px 28px; }
 
 .hero h1 {
   font-size: clamp(2rem, 4.5vw, 2.75rem);
   font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin-bottom: 16px;
+  letter-spacing: -.03em;
+  margin-bottom: 12px;
 }
 
-.subtitle {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-  max-width: none;
-}
+.subtitle { font-size: 1.125rem; color: var(--muted); }
 
 /* ==========================================================================
-   TAB DI CATEGORIA
+   TAB: controllo segmentato di vetro con indicatore che scivola
    ========================================================================== */
-.category-nav .container {
-  padding-top: 0;
-  padding-bottom: 0;
+.tabs {
+  position: relative;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
 }
 
-.category-tabs {
-  display: flex;
-  gap: 28px;
-  border-bottom: 1px solid var(--border);
+.tab-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--w, 0);
+  transform: translateX(var(--x, 0));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 38%, transparent);
+}
+
+/* La classe .ready arriva dopo il primo posizionamento, così all'apertura non "scivola" */
+.tabs.ready .tab-pill {
+  transition: transform 260ms var(--ease), width 260ms var(--ease), background-color var(--speed) var(--ease);
 }
 
 .tab-btn {
-  font: inherit;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  position: relative;
+  padding: 7px 20px;
+  font: 500 .95rem var(--font);
+  color: var(--muted);
   background: none;
-  border: none;
-  padding: 10px 0 12px;
-  margin-bottom: -1px; /* la linea attiva si sovrappone al bordo della barra */
-  border-bottom: 2px solid transparent;
+  border: 0;
+  border-radius: 999px;
   cursor: pointer;
-  transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
 }
 
-.tab-btn:hover {
-  color: var(--text);
-}
-
-.tab-btn[aria-selected="true"] {
-  color: var(--text);
-  border-bottom-color: var(--accent);
-}
+.tab-btn:hover { color: var(--text); }
+.tab-btn[aria-selected="true"] { color: var(--c); }
 
 /* ==========================================================================
-   SEZIONI
+   RIGA DI CARD (una sola riga, scorre in orizzontale se manca spazio)
    ========================================================================== */
-.main-content {
-  padding-top: 32px;
-  padding-bottom: 24px;
-}
+.main-content { padding-block: 28px 24px; }
 
-.section[hidden] {
-  display: none;
-}
-
-/* Una sola riga: le card restano affiancate e, se manca spazio,
-   la riga scorre in orizzontale invece di andare a capo. */
 .grid {
   display: grid;
   grid-auto-flow: column;
@@ -244,17 +223,15 @@ body {
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x proximity;
-  /* il padding evita che bordi e ombre vengano tagliati dall'overflow;
-     il margine negativo lo compensa così l'allineamento non cambia */
-  padding: 4px;
-  margin: -4px;
-  padding-bottom: 16px;
-  margin-bottom: -12px;
+  scroll-padding-inline: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+  /* il padding evita che bordi e ombre vengano tagliati; il margine negativo lo compensa */
+  padding: 8px 8px 24px;
+  margin: -8px -8px -12px;
 }
 
-.grid > .card {
-  scroll-snap-align: start;
-}
+.grid > .card { scroll-snap-align: start; }
 
 /* ==========================================================================
    CARD
@@ -263,16 +240,12 @@ body {
   display: flex;
   flex-direction: column;
   padding: 28px;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  transition: border-color var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+  border-radius: var(--radius);
 }
 
 .card:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--c) 40%, var(--line));
+  box-shadow: inset 0 1px 0 var(--glass-hi), 0 16px 36px -14px color-mix(in srgb, var(--c) 45%, transparent);
 }
 
 .card-head {
@@ -284,221 +257,120 @@ body {
 }
 
 .card-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   width: 40px;
   height: 40px;
-  color: var(--text);
-  background-color: var(--surface-muted);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 14%, transparent);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 28%, transparent);
 }
 
-.card-icon svg {
-  width: 20px;
-  height: 20px;
-}
-
-.card h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.3;
-  margin-bottom: 8px;
-}
-
-.card-description {
-  flex-grow: 1;
-  margin-bottom: 20px;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-}
-
-.card-details {
-  margin-bottom: 20px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* Etichetta di stato (es. "Disponibile ora"): l'unico tocco di accento nella card */
 .card-tag {
   padding: 2px 10px;
-  font-size: 0.75rem;
+  font-size: .75rem;
   font-weight: 500;
-  color: var(--accent-text);
-  background-color: var(--accent-soft);
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 14%, transparent);
   border-radius: 999px;
   white-space: nowrap;
 }
 
+.card h3 { font-size: 1.125rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; margin-bottom: 8px; }
+.card-description { flex-grow: 1; margin-bottom: 20px; font-size: .95rem; color: var(--muted); }
+.card-details { margin-bottom: 16px; font-size: .85rem; color: var(--muted); }
+
+/* Spazio per uno screenshot o una GIF del progetto: basta aggiungere <img class="card-media"> */
+.card-media { width: 100%; margin-bottom: 16px; border: 1px solid var(--line); border-radius: 8px; }
+
 /* ==========================================================================
    PULSANTI
    ========================================================================== */
+.actions { display: grid; gap: 8px; }
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 10px 18px;
-  font: inherit;
-  font-size: 0.925rem;
-  font-weight: 500;
-  line-height: 1.4;
+  font: 500 .925rem/1.4 var(--font);
   text-decoration: none;
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color var(--speed) var(--ease), border-color var(--speed) var(--ease),
-    color var(--speed) var(--ease);
 }
 
-.btn svg {
-  width: 16px;
-  height: 16px;
-}
+.btn .icon { width: 16px; height: 16px; stroke-width: 2; }
 
-/* Pieno: solo per l'azione principale della pagina */
 .btn-primary {
-  color: var(--on-accent);
-  background-color: var(--accent);
+  color: var(--on-btn);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--btn-a) 70%, transparent);
 }
 
-.btn-primary:hover {
-  background-color: var(--accent-hover);
-}
+.btn-primary:hover { filter: brightness(1.08); }
 
-/* Contorno: azioni secondarie */
-.btn-secondary {
-  color: var(--text);
-  background-color: transparent;
-  border-color: var(--border-strong);
-}
-
-.btn-secondary:hover {
-  background-color: var(--surface-muted);
-}
+.btn-secondary { color: var(--text); border-color: var(--line-strong); }
+.btn-secondary:hover { background: var(--line); }
 
 /* ==========================================================================
    NOTA DI INSTALLAZIONE
    ========================================================================== */
-.security-note {
+.note {
   margin-top: 16px;
   padding: 12px 14px;
-  font-size: 0.8125rem;
+  font-size: .8125rem;
   line-height: 1.5;
-  color: var(--text-muted);
-  background-color: var(--surface-muted);
-  border-radius: var(--radius-sm);
+  color: var(--muted);
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+  border-radius: 8px;
 }
 
-.security-note strong {
-  font-weight: 600;
-  color: var(--text);
-}
+.note strong { font-weight: 600; color: var(--text); }
 
 /* ==========================================================================
-   CARD PLACEHOLDER (in sviluppo)
-   Niente opacity: abbassarla riduce il contrasto del testo. Si usano
-   bordo tratteggiato e fondo trasparente per dire "non ancora pronto".
+   CARD PLACEHOLDER: vetro più leggero e bordo tratteggiato
    ========================================================================== */
 .placeholder-card {
-  background-color: transparent;
-  border-style: dashed;
-  border-color: var(--border-strong);
+  background: var(--glass-weak);
+  border: 1px dashed var(--line-strong);
   box-shadow: none;
 }
 
-.placeholder-card:hover {
-  box-shadow: none;
-}
+.placeholder-card:hover { border-color: var(--line-strong); box-shadow: none; }
 
 .placeholder-card .card-icon {
-  color: var(--text-muted);
-  background-color: transparent;
-  border-style: dashed;
+  color: var(--muted);
+  background: none;
+  box-shadow: none;
+  outline: 1px dashed var(--line-strong);
+  outline-offset: -1px;
 }
 
-.status {
-  align-self: flex-start;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-/* ==========================================================================
-   FORM (non usati oggi, pronti per quando servono: contatti, ricerca...)
-   ========================================================================== */
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.field label {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.input {
-  width: 100%;
-  padding: 10px 12px;
-  font: inherit;
-  font-size: 0.95rem;
-  color: var(--text);
-  background-color: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  transition: border-color var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
-}
-
-.input::placeholder {
-  color: var(--text-muted);
-  opacity: 0.8;
-}
-
-.input:hover {
-  border-color: var(--text-muted);
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--ring);
-}
+.status { align-self: flex-start; font-size: .85rem; font-weight: 500; color: var(--muted); }
 
 /* ==========================================================================
    FOOTER
    ========================================================================== */
 .footer {
   margin-top: 48px;
-  padding: 28px 0 40px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  border-top: 1px solid var(--border);
+  padding-block: 28px 40px;
+  font-size: .85rem;
+  color: var(--muted);
 }
+
+.footer p { padding-top: 24px; border-top: 1px solid var(--line); }
 
 /* ==========================================================================
    RESPONSIVE E ACCESSIBILITÀ
    ========================================================================== */
 @media (max-width: 600px) {
-  .container {
-    padding: 0 20px;
-  }
-
-  .hero {
-    padding: 36px 0 28px;
-  }
-
-  .card {
-    padding: 22px;
-  }
+  .container { padding-inline: 16px; }
+  .card { padding: 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-  }
+  *, *::before, *::after { transition-duration: .01ms !important; }
 }

@@ -4,16 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La mia vetrina di software e progetti</title>
+  <meta name="description" content="Software e progetti di Jacooops: giochi, strumenti e altre app da scaricare gratis.">
   <meta name="color-scheme" content="light dark">
+
+  <!-- Anteprima quando il link viene condiviso -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="La mia vetrina di software e progetti">
+  <meta property="og:description" content="Giochi, strumenti e altre app da scaricare gratis.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23b4482a'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23fff'/%3E%3C/svg%3E">
 
   <!-- Applica il tema salvato prima del rendering, per evitare il "flash" chiaro/scuro -->
   <script>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        if (saved) document.documentElement.setAttribute('data-theme', saved);
-      } catch (e) {}
-    })();
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
   </script>
 
   <link rel="stylesheet" href="style.css">
@@ -23,125 +29,94 @@
 </head>
 <body>
 
-  <!-- Barra superiore -->
-  <div class="topbar">
-    <div class="container">
-      <span class="brand">Jacooops.github.io</span>
-      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Cambia tema chiaro/scuro">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M12 3v18" />
-          <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/>
-        </svg>
-      </button>
-    </div>
-  </div>
+  <!-- Icone: definite una volta sola e richiamate con <use href="#i-nome"> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="8" cy="16" r="3"/><circle cx="16" cy="16" r="3"/></symbol>
+    <symbol id="i-game" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M7 12h4M9 10v4"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+  </svg>
 
-  <!-- Intestazione -->
-  <header class="hero">
-    <div class="container">
-      <h1>I miei progetti e le mie app</h1>
-      <p class="subtitle">Qui raccolgo i software che sviluppo e le cose che mi appassionano. Le app si scaricano gratis.</p>
+  <!-- Barra superiore di vetro, fissa in alto -->
+  <header class="topbar container">
+    <div class="bar">
+      <span class="brand">Jacooops.github.io</span>
+      <div class="bar-actions">
+        <a class="link" href="https://github.com/Jacooops" target="_blank" rel="noopener">GitHub</a>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Cambia tema chiaro/scuro">
+          <svg class="icon"><use href="#i-theme"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
+  <section class="hero container">
+    <h1>I miei progetti e le mie app</h1>
+    <p class="subtitle">Qui raccolgo i software che sviluppo e le cose che mi appassionano. Le app si scaricano gratis.</p>
+  </section>
+
   <!-- Categorie -->
-  <nav class="category-nav" aria-label="Categorie">
-    <div class="container">
-      <div class="category-tabs" role="tablist">
-        <button class="tab-btn" role="tab" id="tab-giochi" aria-controls="giochi" aria-selected="true">Giochi</button>
-        <button class="tab-btn" role="tab" id="tab-sviluppo" aria-controls="sviluppo" aria-selected="false" tabindex="-1">Sviluppo</button>
-        <button class="tab-btn" role="tab" id="tab-altro" aria-controls="altro" aria-selected="false" tabindex="-1">Altro</button>
-      </div>
+  <nav class="container" aria-label="Categorie">
+    <div class="tabs" role="tablist" data-cat="giochi">
+      <span class="tab-pill" aria-hidden="true"></span>
+      <button class="tab-btn" role="tab" id="tab-giochi" data-cat="giochi" aria-controls="giochi" aria-selected="true">Giochi</button>
+      <button class="tab-btn" role="tab" id="tab-sviluppo" data-cat="sviluppo" aria-controls="sviluppo" aria-selected="false" tabindex="-1">Sviluppo</button>
+      <button class="tab-btn" role="tab" id="tab-altro" data-cat="altro" aria-controls="altro" aria-selected="false" tabindex="-1">Altro</button>
     </div>
   </nav>
 
   <main class="container main-content">
 
     <!-- GIOCHI -->
-    <section id="giochi" class="section" role="tabpanel" aria-labelledby="tab-giochi">
+    <section id="giochi" class="section" data-cat="giochi" role="tabpanel" aria-labelledby="tab-giochi">
       <div class="grid">
 
         <article class="card">
           <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="8" cy="16" r="3"/><circle cx="16" cy="16" r="3"/></svg>
-            </div>
+            <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-dots"/></svg></div>
             <span class="card-tag">Disponibile ora</span>
           </div>
+          <!-- Per aggiungere un'anteprima: <img class="card-media" src="mastermind.png" alt="Schermata di Mastermind"> -->
           <h3>Mastermind</h3>
-          <p class="card-description">
-            Il classico gioco di logica e codici segreti in versione digitale. Indovina la combinazione nel minor numero di tentativi.
+          <p class="card-description">Il classico gioco di logica e codici segreti in versione digitale. Indovina la combinazione nel minor numero di tentativi.</p>
+          <p class="card-details">Versione 1.0.0 per macOS</p>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/Jacooops/MasterMind/releases/download/v1.0.0/Mastermind_Mac.zip" target="_blank" rel="noopener">
+              <svg class="icon"><use href="#i-download"/></svg>
+              Scarica per Mac
+            </a>
+            <a class="btn btn-secondary" href="https://github.com/Jacooops/MasterMind" target="_blank" rel="noopener">Codice sorgente</a>
+          </div>
+
+          <p class="note">
+            <strong>Nota sull'installazione.</strong> Il gioco non ha una firma digitale commerciale, quindi macOS può bloccarlo al primo avvio. Apri Impostazioni di Sistema, vai su <em>Privacy e sicurezza</em> e clicca <em>Apri comunque</em>.
           </p>
-          <p class="card-details">Gioco per desktop</p>
-
-          <a href="https://github.com/Jacooops/MasterMind/releases/download/v1.0.0/Mastermind_Mac.zip" target="_blank" rel="noopener" class="btn btn-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Scarica l'ultima versione
-          </a>
-
-          <p class="security-note">
-            <strong>Nota sull'installazione.</strong> Essendo un software indipendente, senza firma digitale commerciale, Windows o macOS potrebbero mostrare un avviso al primo avvio. Clicca su <em>"Ulteriori informazioni"</em> e poi <em>"Esegui comunque"</em>.
-          </p>
         </article>
 
         <article class="card placeholder-card">
           <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="9" y1="10" x2="9" y2="14"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
-            </div>
+            <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-game"/></svg></div>
           </div>
           <h3>Prossimo gioco</h3>
           <p class="card-description">Un nuovo gioco è in sviluppo. Torna presto per gli aggiornamenti.</p>
           <span class="status">In sviluppo</span>
         </article>
 
-        <article class="card placeholder-card">
-          <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="9" y1="10" x2="9" y2="14"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
-            </div>
-          </div>
-          <h3>Prossimo gioco</h3>
-          <p class="card-description">Un nuovo gioco è in sviluppo. Torna presto per gli aggiornamenti.</p>
-          <span class="status">In sviluppo</span>
-        </article>
-
-        <article class="card placeholder-card">
-          <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="9" y1="10" x2="9" y2="14"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
-            </div>
-          </div>
-          <h3>Prossimo gioco</h3>
-          <p class="card-description">Un nuovo gioco è in sviluppo. Torna presto per gli aggiornamenti.</p>
-          <span class="status">In sviluppo</span>
-        </article>
-        
-        <article class="card placeholder-card">
-          <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="9" y1="10" x2="9" y2="14"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
-            </div>
-          </div>
-          <h3>Prossimo gioco</h3>
-          <p class="card-description">Un nuovo gioco è in sviluppo. Torna presto per gli aggiornamenti.</p>
-          <span class="status">In sviluppo</span>
-        </article>
-
-        
       </div>
     </section>
 
     <!-- SVILUPPO -->
-    <section id="sviluppo" class="section" role="tabpanel" aria-labelledby="tab-sviluppo" hidden>
+    <section id="sviluppo" class="section" data-cat="sviluppo" role="tabpanel" aria-labelledby="tab-sviluppo" hidden>
       <div class="grid">
 
         <article class="card placeholder-card">
           <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-            </div>
+            <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-code"/></svg></div>
           </div>
           <h3>Strumenti per sviluppatori</h3>
           <p class="card-description">Utility e strumenti per chi scrive codice, in fase di realizzazione.</p>
@@ -150,9 +125,7 @@
 
         <article class="card placeholder-card">
           <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            </div>
+            <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-box"/></svg></div>
           </div>
           <h3>Nuovo progetto</h3>
           <p class="card-description">Un progetto software per la gestione e l'automazione.</p>
@@ -163,14 +136,12 @@
     </section>
 
     <!-- ALTRO -->
-    <section id="altro" class="section" role="tabpanel" aria-labelledby="tab-altro" hidden>
+    <section id="altro" class="section" data-cat="altro" role="tabpanel" aria-labelledby="tab-altro" hidden>
       <div class="grid">
 
         <article class="card placeholder-card">
           <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-            </div>
+            <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-folder"/></svg></div>
           </div>
           <h3>Progetti vari</h3>
           <p class="card-description">Spazio per esperimenti, risorse e altri progetti speciali.</p>
@@ -179,9 +150,7 @@
 
         <article class="card placeholder-card">
           <div class="card-head">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
+            <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg></div>
           </div>
           <h3>Altre novità</h3>
           <p class="card-description">Nuove idee e contenuti extra in arrivo a breve.</p>
@@ -193,45 +162,56 @@
 
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026. ***.</p>
-    </div>
+  <footer class="footer container">
+    <p>&copy; 2026 Jacooops. Ospitato su GitHub Pages.</p>
   </footer>
 
   <script>
-    /* --- Tab: click + tastiera (frecce, Home, End) --- */
+    /* --- Tab: click, tastiera (frecce, Home, End) e indirizzo (#sviluppo) --- */
     const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const list = document.querySelector('.tabs');
+    const pill = list.querySelector('.tab-pill');
+    let current = tabs[0];
 
-    function selectTab(tab, moveFocus) {
+    function movePill() {
+      pill.style.setProperty('--x', current.offsetLeft + 'px');
+      pill.style.setProperty('--w', current.offsetWidth + 'px');
+    }
+
+    function selectTab(tab, { focus = false, save = true } = {}) {
+      current = tab;
       tabs.forEach(t => {
         const active = t === tab;
         t.setAttribute('aria-selected', active);
         t.tabIndex = active ? 0 : -1;
         document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
       });
-      if (moveFocus) tab.focus();
+      list.dataset.cat = tab.dataset.cat;
+      movePill();
+      if (focus) tab.focus();
+      if (save) history.replaceState(null, '', '#' + tab.dataset.cat);
     }
 
     tabs.forEach((tab, i) => {
       tab.addEventListener('click', () => selectTab(tab));
       tab.addEventListener('keydown', e => {
-        let next = null;
-        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
-        if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
-        if (e.key === 'Home') next = tabs[0];
-        if (e.key === 'End') next = tabs[tabs.length - 1];
-        if (next) { e.preventDefault(); selectTab(next, true); }
+        const next = { ArrowRight: tabs[(i + 1) % tabs.length], ArrowLeft: tabs[(i - 1 + tabs.length) % tabs.length], Home: tabs[0], End: tabs[tabs.length - 1] }[e.key];
+        if (next) { e.preventDefault(); selectTab(next, { focus: true }); }
       });
     });
+
+    selectTab(tabs.find(t => '#' + t.dataset.cat === location.hash) || tabs[0], { save: false });
+    requestAnimationFrame(() => list.classList.add('ready'));
+    window.addEventListener('resize', movePill);
+    if (document.fonts) document.fonts.ready.then(movePill);
 
     /* --- Tema chiaro/scuro: segue il sistema, il pulsante lo sovrascrive --- */
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      const current = root.getAttribute('data-theme') || (prefersDark.matches ? 'dark' : 'light');
-      const next = current === 'dark' ? 'light' : 'dark';
+      const now = root.getAttribute('data-theme') || (prefersDark.matches ? 'dark' : 'light');
+      const next = now === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('theme', next); } catch (e) {}
     });
