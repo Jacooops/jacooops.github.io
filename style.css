@@ -13,16 +13,19 @@ body {
 }
 
 .container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0;
+  padding: 0 40px;
 }
 
 /* --- HERO SECTION --- */
 .hero {
-  padding: 70px 0 40px;
-  text-align: center;
+  padding: 70px 0 30px;
   background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+}
+
+.hero .container {
+  text-align: left;
 }
 
 .badge {
@@ -51,48 +54,52 @@ body {
   font-size: 1.1rem;
   color: #94a3b8;
   max-width: 600px;
-  margin: 0 auto;
 }
 
-/* --- NAV-BAR --- */
-.nav-bar {
-  border-bottom: 1px solid #1e293b;
-  margin-bottom: 40px;
+/* --- CATEGORY NAV (Scritte interattive) --- */
+.category-nav {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-.nav-links {
+.category-tabs {
   display: flex;
-  justify-content: center;
-  list-style: none;
-  gap: 20px;
+  gap: 30px;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: #94a3b8;
-  padding: 12px 16px;
-  display: block;
-  font-weight: 600;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
-}
-
-.nav-links a.active, .nav-links a:hover {
-  color: #38bdf8;
-  border-bottom-color: #38bdf8;
-}
-
-/* --- SEZIONI E GRID --- */
-.section-title {
+.tab-btn {
+  background: none;
+  border: none;
   font-size: 1.6rem;
-  margin-bottom: 25px;
-  color: #f1f5f9;
+  font-weight: 700;
+  color: #64748b; /* Colore spento quando non ci si passa sopra */
+  cursor: pointer;
+  padding-bottom: 5px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-btn:hover, .tab-btn.active {
+  color: #f1f5f9; /* Colore brillante quando ci passi sopra */
+  border-bottom-color: #0284c7;
+}
+
+/* --- SEZIONI DINAMICHE --- */
+.section {
+  display: none; /* Nascoste di default */
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.section.active-section {
+  display: block; /* Mostra solo la sezione attiva */
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 25px;
+  justify-content: start;
 }
 
 /* --- CARDS --- */
@@ -173,8 +180,8 @@ body {
 }
 
 .btn-disabled {
-  background-color: #334155;
-  color: #64748b;
+  background-color: #0b1120;
+  color: #475569;
   cursor: not-allowed;
 }
 
@@ -190,14 +197,21 @@ body {
   line-height: 1.4;
 }
 
+/* --- CARD PLACEHOLDER (In sviluppo / Non pronte) --- */
 .placeholder-card {
-  opacity: 0.7;
-  border-style: dashed;
+  background-color: #0b1120;
+  border: 1px dashed #1e293b;
+  opacity: 0.55;
+}
+
+.placeholder-card:hover {
+  transform: none;
+  border-color: #1e293b;
 }
 
 /* --- FOOTER --- */
 .footer {
-  text-align: center;
+  text-align: left;
   padding: 40px 0;
   margin-top: 60px;
   border-top: 1px solid #1e293b;
