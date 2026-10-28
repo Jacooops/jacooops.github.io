@@ -30,6 +30,7 @@
   --on-btn: light-dark(#ffffff, #2a1a12);
 
   --bar-h: 50px;
+  --card-w: 360px;
   --radius: 12px;
   --speed: 180ms;
   --ease: cubic-bezier(.2, 0, 0, 1);
@@ -99,7 +100,7 @@ body::before {
 /* ==========================================================================
    VETRO: barra, tab e card condividono la stessa ricetta
    ========================================================================== */
-.bar, .tabs, .card {
+.bar, .tabs, .card, .panel, .expand-btn {
   background: var(--glass);
   border: 1px solid var(--line);
   box-shadow: inset 0 1px 0 var(--glass-hi), 0 12px 28px -14px var(--shadow-c);
@@ -113,7 +114,7 @@ body::before {
 }
 @media (prefers-reduced-transparency: reduce) {
   :root { --glass: light-dark(#fffdfa, #2a2825); --glass-weak: transparent; }
-  .bar, .tabs, .card { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .bar, .tabs, .card, .panel, .expand-btn { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
 /* ==========================================================================
@@ -221,26 +222,11 @@ body::before {
 .tab-btn[aria-selected="true"] { color: var(--c); }
 
 /* ==========================================================================
-   RIGA DI CARD (una sola riga, scorre in orizzontale se manca spazio)
+   ELENCO DI CARD (una sotto l'altra)
    ========================================================================== */
 .main-content { padding-block: 28px 24px; }
 
-.grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min(320px, 85%);
-  gap: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scroll-padding-inline: 8px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  /* il padding evita che bordi e ombre vengano tagliati; il margine negativo lo compensa */
-  padding: 8px 8px 24px;
-  margin: -8px -8px -12px;
-}
-
-.grid > .card { scroll-snap-align: start; }
+.grid { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
 
 /* ==========================================================================
    CARD
@@ -248,6 +234,7 @@ body::before {
 .card {
   display: flex;
   flex-direction: column;
+  width: min(100%, var(--card-w));
   padding: 28px;
   border-radius: var(--radius);
 }
@@ -290,8 +277,6 @@ body::before {
 .card-description { flex-grow: 1; margin-bottom: 20px; font-size: .95rem; color: var(--muted); }
 .card-details { margin-bottom: 16px; font-size: .85rem; color: var(--muted); }
 
-/* Spazio per uno screenshot o una GIF del progetto: basta aggiungere <img class="card-media"> */
-.card-media { width: 100%; margin-bottom: 16px; border: 1px solid var(--line); border-radius: 8px; }
 
 /* ==========================================================================
    PULSANTI
@@ -323,19 +308,64 @@ body::before {
 
 
 /* ==========================================================================
-   NOTA DI INSTALLAZIONE
+   FRECCIA E PANNELLI (installazione + anteprime, a mazzo di carte)
    ========================================================================== */
-.note {
-  margin-top: 16px;
-  padding: 12px 14px;
-  font-size: .8125rem;
-  line-height: 1.5;
-  color: var(--muted);
-  background: color-mix(in srgb, var(--text) 5%, transparent);
-  border-radius: 8px;
+.project { display: flex; flex-wrap: wrap; align-items: stretch; gap: 16px; width: 100%; }
+
+.expand-btn {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  color: var(--c);
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.note strong { font-weight: 600; color: var(--text); }
+.expand-btn:hover { background: color-mix(in srgb, var(--c) 16%, var(--glass)); }
+.expand-btn .icon { transition: transform var(--speed) var(--ease); }
+.expand-btn[aria-expanded="true"] .icon { transform: rotate(180deg); }
+
+.extra { display: none; flex: 1 1 auto; flex-wrap: wrap; gap: 16px; }
+.project.open .extra { display: flex; }
+
+.panel {
+  width: min(100%, 340px);
+  padding: 28px;
+  border-radius: var(--radius);
+  transition: opacity .4s var(--ease), transform .4s var(--ease);
+}
+
+.panel-fan { width: min(100%, 420px); }
+.panel h4 { margin-bottom: 14px; font-size: 1rem; font-weight: 600; letter-spacing: -.01em; }
+
+.steps { display: grid; gap: 10px; padding-left: 1.25em; font-size: .9rem; color: var(--muted); }
+.steps strong { font-weight: 500; color: var(--text); }
+
+.fan { display: grid; place-items: center; min-height: 300px; }
+
+.fan img {
+  grid-area: 1 / 1;
+  width: 200px;
+  height: auto;
+  transition: transform .5s var(--ease) .12s;
+}
+
+.fan img:first-child { transform: translateX(-52px) rotate(-8deg); }
+.fan img:last-child  { transform: translateX(52px) rotate(7deg); }
+.fan:hover img:first-child { transform: translateX(-66px) rotate(-11deg); }
+.fan:hover img:last-child  { transform: translateX(66px) rotate(10deg); }
+
+.caption { margin-top: 8px; font-size: .8rem; color: var(--muted); text-align: center; }
+
+/* Apertura: i pannelli scivolano fuori uno dopo l'altro e le anteprime si aprono a ventaglio */
+.project.open .panel:nth-child(2) { transition-delay: 90ms; }
+@starting-style {
+  .project.open .panel { opacity: 0; transform: translateX(-24px); }
+  .project.open .fan img { transform: none; }
+}
 
 /* ==========================================================================
    CARD PLACEHOLDER: vetro più leggero e bordo tratteggiato
@@ -373,9 +403,16 @@ body::before {
 /* ==========================================================================
    RESPONSIVE E ACCESSIBILITÀ
    ========================================================================== */
+@media (max-width: 760px) {
+  .project { flex-direction: column; align-items: stretch; }
+  .expand-btn { align-self: center; }
+  .expand-btn .icon { transform: rotate(90deg); }
+  .expand-btn[aria-expanded="true"] .icon { transform: rotate(-90deg); }
+}
+
 @media (max-width: 600px) {
   .container { padding-inline: 16px; }
-  .card { padding: 22px; }
+  .card, .panel { padding: 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

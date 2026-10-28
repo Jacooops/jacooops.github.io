@@ -38,6 +38,7 @@
     <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></symbol>
     <symbol id="i-folder" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
     <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
   </svg>
 
@@ -75,27 +76,48 @@
     <section id="giochi" class="section" data-cat="giochi" role="tabpanel" aria-labelledby="tab-giochi">
       <div class="grid">
 
-        <article class="card">
-          <div class="card-head">
-            <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-dots"/></svg></div>
-            <span class="card-tag">Disponibile ora</span>
-          </div>
-          <!-- Per aggiungere un'anteprima: <img class="card-media" src="mastermind.png" alt="Schermata di Mastermind"> -->
-          <h3>Mastermind</h3>
-          <p class="card-description">Il classico gioco di logica e codici segreti in versione digitale. Indovina la combinazione nel minor numero di tentativi.</p>
-          <p class="card-details">Versione 1.0.0 per macOS</p>
+        <div class="project">
+          <article class="card">
+            <div class="card-head">
+              <div class="card-icon" aria-hidden="true"><svg class="icon"><use href="#i-dots"/></svg></div>
+              <span class="card-tag">Disponibile ora</span>
+            </div>
+            <h3>Mastermind</h3>
+            <p class="card-description">Il classico gioco di logica e codici segreti in versione digitale. Indovina la combinazione nel minor numero di tentativi.</p>
+            <p class="card-details">Versione 1.0.0 per macOS</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://github.com/Jacooops/Mastermind-releases/releases/download/v1.0.0/Mastermind_Mac.zip" target="_blank" rel="noopener">
+                <svg class="icon"><use href="#i-download"/></svg>
+                Scarica per Mac
+              </a>
+            </div>
+          </article>
 
-          <div class="actions">
-            <a class="btn btn-primary" href="https://github.com/Jacooops/Mastermind-releases/releases/download/v1.0.0/Mastermind_Mac.zip" target="_blank" rel="noopener">
-              <svg class="icon"><use href="#i-download"/></svg>
-              Scarica per Mac
-            </a>
-          </div>
+          <button class="expand-btn" type="button" aria-expanded="false" aria-controls="mastermind-extra" aria-label="Mostra installazione e anteprime" title="Installazione e anteprime">
+            <svg class="icon"><use href="#i-chevron"/></svg>
+          </button>
 
-          <p class="note">
-            <strong>Nota sull'installazione.</strong> Il gioco non ha una firma digitale commerciale, quindi macOS lo blocca al primo avvio. Prova ad aprirlo e premi <em>Fine</em> nell'avviso. Poi apri Impostazioni di Sistema, vai su <em>Privacy e sicurezza</em>, clicca <em>Apri comunque</em> e riapri l'app.
-          </p>
-        </article>
+          <div class="extra" id="mastermind-extra">
+            <section class="panel">
+              <h4>Come installarlo</h4>
+              <ol class="steps">
+                <li><strong>Scarica e scompatta</strong> lo zip: dentro trovi Mastermind.app.</li>
+                <li><strong>Fai doppio clic</strong> sull'app. macOS la blocca perché non ha una firma commerciale: premi <em>Fine</em>.</li>
+                <li><strong>Apri Impostazioni di Sistema</strong>, vai su <em>Privacy e sicurezza</em> e clicca <em>Apri comunque</em>.</li>
+                <li><strong>Riapri l'app</strong> e conferma. Dalla volta dopo si apre normalmente.</li>
+              </ol>
+            </section>
+
+            <section class="panel panel-fan">
+              <h4>Anteprima</h4>
+              <div class="fan">
+                <img src="mastermind-menu.webp" alt="Menu principale di Mastermind con le modalità Classica e Avanzata" loading="lazy">
+                <img src="mastermind-partita.webp" alt="Una partita in modalità Classica" loading="lazy">
+              </div>
+              <p class="caption">Menu e partita</p>
+            </section>
+          </div>
+        </div>
 
         <article class="card placeholder-card">
           <div class="card-head">
@@ -203,6 +225,14 @@
     requestAnimationFrame(() => list.classList.add('ready'));
     window.addEventListener('resize', movePill);
     if (document.fonts) document.fonts.ready.then(movePill);
+
+    /* --- Freccia: mostra/nasconde installazione e anteprime --- */
+    document.querySelectorAll('.expand-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const open = btn.closest('.project').classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+      });
+    });
 
     /* --- Tema chiaro/scuro: segue il sistema, il pulsante lo sovrascrive --- */
     const root = document.documentElement;
