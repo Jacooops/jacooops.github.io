@@ -29,6 +29,7 @@
   --btn-b: light-dark(#cf6a2a, #f4a85f);
   --on-btn: light-dark(#ffffff, #2a1a12);
 
+  --bar-h: 50px;
   --radius: 12px;
   --speed: 180ms;
   --ease: cubic-bezier(.2, 0, 0, 1);
@@ -125,7 +126,8 @@ body::before {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 6px 6px 6px 20px;
+  height: var(--bar-h);
+  padding: 0 6px 0 20px;
   border-radius: 999px;
 }
 
@@ -173,6 +175,13 @@ body::before {
 /* ==========================================================================
    TAB: controllo segmentato di vetro con indicatore che scivola
    ========================================================================== */
+/* Le tab restano ferme sotto la barra superiore */
+.tabs-nav {
+  position: sticky;
+  top: calc(12px + var(--bar-h) + 10px);
+  z-index: 9;
+}
+
 .tabs {
   position: relative;
   display: inline-flex;
@@ -312,8 +321,6 @@ body::before {
 
 .btn-primary:hover { filter: brightness(1.08); }
 
-.btn-secondary { color: var(--text); border-color: var(--line-strong); }
-.btn-secondary:hover { background: var(--line); }
 
 /* ==========================================================================
    NOTA DI INSTALLAZIONE
